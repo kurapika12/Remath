@@ -1,0 +1,1313 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Remath Private - Cerdas Bermatematika!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg-color: #fdfbf6;
+        --primary-red: #a63232;
+        --secondary-red: #d48d8d;
+        --accent-yellow: #f4d03f;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --card-bg: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Dekorasi Geometris khas Pamflet */
+      .decor-bg {
+        position: absolute;
+        z-index: -1;
+      }
+      .decor-shape-1 {
+        top: -10%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: var(--secondary-red);
+        opacity: 0.15;
+        border-radius: 30px;
+        transform: rotate(45deg);
+      }
+      .decor-shape-2 {
+        top: 20%;
+        right: -10%;
+        width: 300px;
+        height: 300px;
+        background: var(--primary-red);
+        opacity: 0.05;
+        border-radius: 50%;
+      }
+
+      /* Navbar */
+      header {
+        padding: 20px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(253, 251, 246, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      header.scrolled {
+        padding: 15px 8%;
+        box-shadow: 0 4px 20px rgba(166, 50, 50, 0.08);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .logo-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary-red);
+        letter-spacing: 1px;
+        line-height: 1;
+      }
+
+      .logo-subtitle {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text-dark);
+        letter-spacing: 0.5px;
+        margin-top: 2px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 600;
+        font-size: 15px;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-red);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--accent-yellow);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .btn-daftar-nav {
+        background: var(--primary-red);
+        color: white;
+        padding: 10px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-red);
+      }
+
+      .btn-daftar-nav:hover {
+        background: transparent;
+        color: var(--primary-red);
+      }
+
+      /* Mobile Menu Toggle */
+      .menu-toggle {
+        display: none;
+        font-size: 24px;
+        color: var(--primary-red);
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 8% 60px;
+        gap: 50px;
+        position: relative;
+      }
+
+      .hero-text {
+        flex: 1;
+        max-width: 600px;
+      }
+
+      .badge {
+        display: inline-block;
+        background: rgba(244, 208, 63, 0.2);
+        color: #b08d00;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 20px;
+        border: 1px solid var(--accent-yellow);
+      }
+
+      .hero h1 {
+        font-size: clamp(36px, 5vw, 56px);
+        font-weight: 800;
+        color: var(--primary-red);
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 span {
+        color: var(--accent-yellow);
+        position: relative;
+      }
+
+      .hero p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 35px;
+      }
+
+      .hero-btns {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .btn-primary {
+        background: var(--accent-yellow);
+        color: var(--text-dark);
+        padding: 15px 32px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(244, 208, 63, 0.4);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(244, 208, 63, 0.6);
+      }
+
+      .btn-secondary {
+        color: var(--primary-red);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: gap 0.3s ease;
+      }
+
+      .btn-secondary:hover {
+        gap: 15px;
+      }
+
+      .hero-img {
+        flex: 1;
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+
+      .img-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 25px 25px 0px var(--secondary-red);
+      }
+
+      .img-wrapper img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+
+      .img-wrapper:hover img {
+        transform: scale(1.05);
+      }
+
+      .floating-card {
+        position: absolute;
+        bottom: -20px;
+        left: -30px;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .floating-card i {
+        font-size: 30px;
+        color: var(--primary-red);
+        background: rgba(166, 50, 50, 0.1);
+        padding: 15px;
+        border-radius: 50%;
+      }
+
+      .floating-card-text h4 {
+        font-size: 18px;
+        color: var(--text-dark);
+        font-weight: 700;
+      }
+      .floating-card-text p {
+        font-size: 13px;
+        color: #666;
+        margin: 0;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      /* Programs Section */
+      .programs {
+        padding: 80px 8%;
+        background: white;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .section-header h2 {
+        font-size: 36px;
+        color: var(--primary-red);
+        font-weight: 800;
+        margin-bottom: 15px;
+      }
+
+      .section-header p {
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .program-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .program-card {
+        background: var(--bg-color);
+        padding: 40px 30px;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(166, 50, 50, 0.1);
+        z-index: 1;
+      }
+
+      .program-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-red);
+        z-index: -1;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.4s ease;
+      }
+
+      .program-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(166, 50, 50, 0.15);
+      }
+
+      .program-card:hover::before {
+        transform: scaleY(1);
+      }
+
+      .program-card:hover h3,
+      .program-card:hover p,
+      .program-card:hover .icon-box i {
+        color: white;
+      }
+
+      .icon-box {
+        width: 80px;
+        height: 80px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .icon-box i {
+        font-size: 32px;
+        color: var(--accent-yellow);
+        transition: color 0.4s ease;
+      }
+
+      .program-card h3 {
+        font-size: 22px;
+        color: var(--primary-red);
+        margin-bottom: 15px;
+        transition: color 0.4s ease;
+      }
+
+      .program-card p {
+        color: #666;
+        font-size: 15px;
+        line-height: 1.6;
+        transition: color 0.4s ease;
+      }
+
+      /* Pricing Section */
+      .pricing {
+        padding: 80px 8%;
+        background: white;
+      }
+
+      .pricing-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .tab-btn {
+        padding: 10px 30px;
+        border: 2px solid var(--primary-red);
+        background: transparent;
+        color: var(--primary-red);
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .tab-btn.active,
+      .tab-btn:hover {
+        background: var(--primary-red);
+        color: white;
+      }
+
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .pricing-card {
+        background: var(--bg-color);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid var(--primary-red);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pricing-card p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        flex-grow: 1;
+      }
+
+      .pricing-card h3 {
+        color: var(--primary-red);
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .pricing-card .price {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--accent-yellow);
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      .pricing-card .price span {
+        font-size: 14px;
+        color: #666;
+        font-weight: 500;
+        text-shadow: none;
+      }
+
+      .pricing-list {
+        list-style: none;
+        margin-bottom: 25px;
+      }
+
+      .pricing-list li {
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #555;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .pricing-list li i {
+        color: var(--primary-red);
+        margin-top: 3px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Features Section */
+      .features {
+        padding: 80px 8%;
+        background: var(--bg-color);
+        position: relative;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-top: 50px;
+      }
+
+      .feature-item {
+        display: flex;
+        gap: 20px;
+      }
+
+      .feature-icon {
+        font-size: 28px;
+        color: var(--primary-red);
+        background: rgba(166, 50, 50, 0.1);
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .feature-text h4 {
+        font-size: 18px;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+      }
+
+      .feature-text p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      /* CTA Banner */
+      .cta-banner {
+        margin: 0 8% 80px;
+        background: linear-gradient(135deg, var(--primary-red), #7a2121);
+        border-radius: 30px;
+        padding: 60px 40px;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(166, 50, 50, 0.3);
+      }
+
+      .cta-banner h2 {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .cta-banner p {
+        font-size: 16px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Footer */
+      footer {
+        background: white;
+        padding: 60px 8% 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-info {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .footer-info p {
+        color: #666;
+        margin-top: 15px;
+        font-size: 15px;
+        max-width: 300px;
+      }
+
+      .footer-links {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-links h4 {
+        font-size: 18px;
+        color: var(--primary-red);
+        margin-bottom: 20px;
+      }
+
+      .social-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .social-link i {
+        font-size: 24px;
+        color: var(--primary-red);
+      }
+
+      .social-link:hover {
+        color: var(--primary-red);
+        transform: translateX(10px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        color: #999;
+        font-size: 14px;
+      }
+
+      /* Animasi Observer */
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-40px);
+        transition: all 0.8s ease;
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(40px);
+        transition: all 0.8s ease;
+      }
+      .is-visible {
+        opacity: 1;
+        transform: translate(0) scale(1);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 991px) {
+        .hero {
+          flex-direction: column;
+          padding-top: 150px;
+          text-align: center;
+        }
+        .hero-text {
+          margin: 0 auto;
+        }
+        .hero-btns {
+          justify-content: center;
+        }
+        .floating-card {
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: -40px;
+          animation: none;
+        }
+        .img-wrapper {
+          box-shadow: 15px 15px 0px var(--secondary-red);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links,
+        .btn-daftar-nav {
+          display: none;
+        }
+        .menu-toggle {
+          display: block;
+        }
+        .hero h1 {
+          font-size: 32px;
+        }
+        .cta-banner {
+          padding: 40px 20px;
+          margin: 0 5% 60px;
+        }
+        .cta-banner h2 {
+          font-size: 24px;
+        }
+        .program-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* Mobile Nav Active */
+        .nav-active {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: white;
+          flex-direction: column;
+          padding: 20px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          display: flex !important;
+          gap: 20px;
+          text-align: center;
+        }
+        .nav-active .btn-daftar-nav {
+          display: inline-block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Geometris Background -->
+    <div class="decor-bg decor-shape-1"></div>
+    <div class="decor-bg decor-shape-2"></div>
+
+    <!-- Header / Navbar -->
+    <header id="header">
+      <a href="#" class="logo">
+        <div class="logo-text">
+          <span class="logo-title">REMATH_PRIVATE</span>
+          <span class="logo-subtitle">Cerdas Bermatematika!</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#program">Program</a></li>
+        <li><a href="#harga">Harga</a></li>
+        <li><a href="#keunggulan">Keunggulan</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+
+      <a
+        href="https://wa.me/6281775127977?text=Halo%20Admin%20Remath%20Private,%20saya%20ingin%20mendaftar%20bimbel.%20Boleh%20minta%20info%20lebih%20lanjut?"
+        class="btn-daftar-nav"
+        target="_blank"
+        >Daftar Sekarang</a
+      >
+
+      <div class="menu-toggle" id="mobileMenu">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="beranda">
+      <div class="hero-text reveal-left">
+        <div class="badge">📚 Bimbel Privat Terpercaya Kota Kendari</div>
+        <h1>Teman Belajar Terbaik Untuk Meraih <span>Prestasi!</span></h1>
+        <p>
+          Tingkatkan pemahaman akademik anak Anda dengan pendekatan belajar yang
+          menyenangkan, interaktif, dan tutor yang berpengalaman bersama Remath
+          Private. <strong>Eksklusif melayani domisili Kota Kendari.</strong>
+        </p>
+
+        <div class="hero-btns">
+          <a
+            href="https://wa.me/6281775127977?text=Halo%20Admin%20Remath%20Private,%20saya%20ingin%20konsultasi%20mengenai%20bimbel.%20Boleh%20minta%20waktunya?"
+            class="btn-primary"
+            target="_blank"
+          >
+            Konsultasi Gratis <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#program" class="btn-secondary">
+            Lihat Program <i class="fa-solid fa-chevron-down"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-img reveal-right">
+        <div class="img-wrapper">
+          <!-- Placeholder gambar guru mengajar siswa -->
+          <img
+            src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="Belajar Private di Remath"
+          />
+        </div>
+        <div class="floating-card">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <div class="floating-card-text">
+            <h4>Sudah banyak</h4>
+            <p>Siswa Terbantu</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="program">
+      <div class="section-header reveal-up">
+        <h2>Pilihan Program Belajar</h2>
+        <p>
+          Kami menyediakan berbagai program yang disesuaikan dengan kebutuhan
+          akademik siswa dari berbagai jenjang.
+        </p>
+      </div>
+
+      <div class="program-grid">
+        <!-- Program 1 -->
+        <div class="program-card reveal-up" style="transition-delay: 0.1s">
+          <div class="icon-box">
+            <i class="fa-solid fa-square-root-variable"></i>
+          </div>
+          <h3>Tutor Matematika</h3>
+          <p>
+            Mengubah matematika dari pelajaran yang menakutkan menjadi
+            menyenangkan dengan metode logika dasar yang mudah dipahami.
+          </p>
+        </div>
+
+        <!-- Program 2 -->
+        <div class="program-card reveal-up" style="transition-delay: 0.2s">
+          <div class="icon-box">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <h3>Tutor English</h3>
+          <p>
+            Meningkatkan kepercayaan diri dalam berbahasa Inggris melalui
+            praktik speaking, grammar yang tepat, dan listening.
+          </p>
+        </div>
+
+        <!-- Program 3 -->
+        <div class="program-card reveal-up" style="transition-delay: 0.3s">
+          <div class="icon-box">
+            <i class="fa-solid fa-pencil"></i>
+          </div>
+          <h3>Tutor Calistung</h3>
+          <p>
+            Membangun fondasi kuat bagi anak usia dini dalam Membaca, Menulis,
+            dan Berhitung dengan metode bermain sambil belajar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="harga">
+      <div class="section-header reveal-up">
+        <h2>Pilihan Paket & Harga</h2>
+        <p>
+          Investasi terbaik untuk pendidikan anak Anda. Pilihan paket belajar
+          kami eksklusif disesuaikan khusus untuk domisili
+          <strong>Kota Kendari</strong>.
+        </p>
+      </div>
+
+      <div class="pricing-tabs reveal-up">
+        <button class="tab-btn active" onclick="openTab(event, 'sd')">
+          Tingkat SD
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'smp')">
+          Tingkat SMP
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'sma')">
+          Tingkat SMA
+        </button>
+      </div>
+
+      <!-- Tingkat SD -->
+      <div id="sd" class="tab-content active reveal-up">
+        <div class="program-grid">
+          <div class="pricing-card">
+            <h3>Paket "Dasar Kuat"</h3>
+            <p>
+              Fokus pada penguatan dasar berhitung, operasi bilangan, dan
+              pemecahan masalah sederhana.
+            </p>
+            <div class="price">Rp 480.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 8 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 60.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Siap Juara"</h3>
+            <p>
+              Belajar lebih intensif untuk persiapan ujian atau peningkatan
+              nilai secara cepat.
+            </p>
+            <div class="price">Rp 780.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 12 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 65.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Kilat Ujian"</h3>
+            <p>
+              Fokus pada penguatan materi ujian yang akan datang dengan segera.
+            </p>
+            <div class="price">Rp 390.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 6 sesi / 2 Minggu</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 65.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Semester Ceria"</h3>
+            <p>
+              Pembelajaran berkelanjutan untuk pemahaman mendalam sepanjang
+              semester.
+            </p>
+            <div class="price">Rp 2.640.000<span>/6 bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 48 sesi / 6 bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tags"></i> Hemat Rp 240.000</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tingkat SMP -->
+      <div id="smp" class="tab-content reveal-up">
+        <div class="program-grid">
+          <div class="pricing-card">
+            <h3>Paket "Dasar Kuat"</h3>
+            <p>
+              Fokus pada penguatan dasar materi SMP (Matematika dasar, Aljabar,
+              dll) untuk pemahaman konsep.
+            </p>
+            <div class="price">Rp 560.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 8 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 70.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Siap Juara"</h3>
+            <p>
+              Belajar lebih intensif untuk persiapan ujian, olimpiade dasar,
+              atau peningkatan nilai secara cepat.
+            </p>
+            <div class="price">Rp 840.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 12 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 70.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Kilat Ujian"</h3>
+            <p>
+              Fokus pada penguatan materi ujian sekolah yang akan datang dengan
+              segera.
+            </p>
+            <div class="price">Rp 420.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 6 sesi / 2 Minggu</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 70.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Semester Ceria"</h3>
+            <p>
+              Pembelajaran berkelanjutan untuk pemahaman mendalam sepanjang
+              semester tingkat SMP.
+            </p>
+            <div class="price">Rp 3.000.000<span>/6 bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 48 sesi / 6 bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tags"></i> Hemat Rp 360.000</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tingkat SMA -->
+      <div id="sma" class="tab-content reveal-up">
+        <div class="program-grid">
+          <div class="pricing-card">
+            <h3>Paket "Dasar Kuat"</h3>
+            <p>
+              Fokus pada penguatan dasar materi SMA seperti aljabar,
+              trigonometri, fungsi, persamaan, dll.
+            </p>
+            <div class="price">Rp 600.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 8 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 75.000 / jam</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Akses Juara"</h3>
+            <p>
+              Mengoptimalkan prestasi akademik dan persiapan untuk berbagai
+              ujian kompetitif.
+            </p>
+            <div class="price">Rp 720.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 8 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 90 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 90.000 / sesi</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Strategi UTBK"</h3>
+            <p>
+              Fokus pada persiapan intensif dan strategi untuk ujian UTBK atau
+              Ujian Mandiri PTN.
+            </p>
+            <div class="price">Rp 960.000<span>/bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 8 sesi / bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 90 menit / sesi</li>
+              <li><i class="fa-solid fa-tag"></i> Rp 120.000 / sesi</li>
+            </ul>
+          </div>
+          <div class="pricing-card">
+            <h3>Paket "Semester Ceria"</h3>
+            <p>
+              Pembelajaran berkelanjutan untuk pemahaman mendalam dan dukungan
+              belajar sepanjang semester.
+            </p>
+            <div class="price">Rp 3.360.000<span>/6 bulan</span></div>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> 48 sesi / 6 bulan</li>
+              <li><i class="fa-regular fa-clock"></i> 60 menit / sesi</li>
+              <li><i class="fa-solid fa-tags"></i> Hemat Rp 240.000</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Keunggulan Section -->
+    <section class="features" id="keunggulan">
+      <div class="section-header reveal-up">
+        <h2>Mengapa Memilih Remath?</h2>
+        <p>
+          Komitmen kami adalah memberikan fasilitas pengajaran privat terbaik
+          untuk perkembangan anak.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-item reveal-up" style="transition-delay: 0.1s">
+          <div class="feature-icon"><i class="fa-solid fa-user-tie"></i></div>
+          <div class="feature-text">
+            <h4>Tutor Berpengalaman</h4>
+            <p>
+              Pengajar kami adalah mahasiswa/i aktif semester atas dan praktisi
+              yang diseleksi ketat (IPK Min 3.0) dan komunikatif.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-item reveal-up" style="transition-delay: 0.2s">
+          <div class="feature-icon"><i class="fa-regular fa-clock"></i></div>
+          <div class="feature-text">
+            <h4>Jadwal Fleksibel</h4>
+            <p>
+              Waktu dan tempat belajar dapat disesuaikan dengan jadwal kesibukan
+              anak dan orang tua di rumah.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-item reveal-up" style="transition-delay: 0.3s">
+          <div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <div class="feature-text">
+            <h4>Fokus & Personal</h4>
+            <p>
+              Pendekatan 1-on-1 memungkinkan tutor fokus pada kelemahan spesifik
+              dan gaya belajar masing-masing siswa.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-item reveal-up" style="transition-delay: 0.4s">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="feature-text">
+            <h4>Laporan Berkala</h4>
+            <p>
+              Orang tua akan mendapatkan laporan perkembangan belajar anak
+              secara rutin untuk memantau progresnya.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <div class="cta-banner reveal-up">
+      <h2>Siap Meningkatkan Nilai Akademik?</h2>
+      <p>
+        Bergabunglah dengan puluhan siswa lainnya yang telah merasakan manfaat
+        belajar privat di Remath, khusus area Kota Kendari.
+      </p>
+      <a
+        href="https://wa.me/6281775127977?text=Halo%20Admin%20Remath%20Private,%20saya%20ingin%20mendaftar%20bimbel.%20Saya%20berdomisili%20di%20Kota%20Kendari,%20mohon%20info%20lengkapnya."
+        class="btn-primary"
+        target="_blank"
+        style="background: white; color: var(--primary-red)"
+      >
+        <i
+          class="fa-brands fa-whatsapp"
+          style="color: #25d366; font-size: 20px"
+        ></i>
+        Hubungi Admin Kami
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer id="kontak">
+      <div class="footer-content reveal-up">
+        <div class="footer-info">
+          <div class="logo-text">
+            <span class="logo-title" style="font-size: 20px"
+              >REMATH_PRIVATE</span
+            >
+            <span class="logo-subtitle">Cerdas Bermatematika!</span>
+          </div>
+          <p>
+            Lembaga bimbingan belajar privat terpercaya di
+            <strong>Kota Kendari</strong> yang berfokus pada pendekatan personal
+            untuk membantu siswa meraih potensi maksimalnya.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Sosial Media & Kontak</h4>
+          <div class="social-container">
+            <a
+              href="https://instagram.com/remath_private"
+              target="_blank"
+              class="social-link"
+            >
+              <i class="fa-brands fa-instagram"></i> @remath_private
+            </a>
+            <a
+              href="https://tiktok.com/@remath.private"
+              target="_blank"
+              class="social-link"
+            >
+              <i class="fa-brands fa-tiktok" style="color: black"></i>
+              @remath.private
+            </a>
+            <a
+              href="https://wa.me/6281775127977?text=Halo%20Admin%20Remath,%20saya%20ingin%20tanya-tanya%20seputar%20bimbel."
+              target="_blank"
+              class="social-link"
+            >
+              <i class="fa-brands fa-whatsapp" style="color: #25d366"></i> +62
+              817 7512 7977
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2023 Remath Private. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // 1. Efek Scroll Navbar
+      window.addEventListener("scroll", () => {
+        const header = document.getElementById("header");
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      // 2. Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenu");
+      const navLinks = document.getElementById("navLinks");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("nav-active");
+        // Ganti icon
+        const icon = mobileMenuBtn.querySelector("i");
+        if (navLinks.classList.contains("nav-active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Menutup menu mobile saat link diklik
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("nav-active");
+          mobileMenuBtn
+            .querySelector("i")
+            .classList.replace("fa-xmark", "fa-bars");
+        });
+      });
+
+      // 3. Animasi Scroll (Intersection Observer)
+      document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.15,
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+            }
+          });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll(
+          ".reveal-up, .reveal-left, .reveal-right",
+        );
+        animatedElements.forEach((el) => observer.observe(el));
+      });
+
+      // 4. Tab Interaktif Untuk Harga
+      function openTab(evt, tabName) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+          tabContents[i].classList.remove("active");
+        }
+
+        const tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+          tabBtns[i].classList.remove("active");
+        }
+
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+      }
+    </script>
+  </body>
+</html>
